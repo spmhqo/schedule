@@ -21,6 +21,9 @@
     .copy-row { display:flex; justify-content:flex-end; padding:10px 10px 0; }
     button { min-height:42px; padding:8px 14px; border:0; border-radius:9px; color:#fff; background:var(--accent); font:600 .88rem/1 system-ui,sans-serif; cursor:pointer; touch-action:manipulation; }
     button:hover, button:focus-visible { background:var(--accent-dark); outline:3px solid rgba(18,99,214,.2); outline-offset:2px; }
+    .action-links { display:flex; flex-wrap:wrap; gap:12px; }
+    .action-links a { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:8px 14px; border-radius:9px; color:#fff; background:var(--accent); font:600 .88rem/1 system-ui,sans-serif; text-decoration:none; cursor:pointer; touch-action:manipulation; }
+    .action-links a:hover, .action-links a:focus-visible { background:var(--accent-dark); outline:3px solid rgba(18,99,214,.2); outline-offset:2px; }
     pre { margin:0; padding:12px 16px 18px; white-space:pre-wrap; overflow-wrap:anywhere; color:#19283e; font:500 clamp(.9rem,2.5vw,1rem)/1.62 ui-monospace,SFMono-Regular,Consolas,monospace; }
     .source { display:flex; align-items:center; gap:10px; margin:1rem 0 1.3rem; color:var(--muted); font-size:.95rem; }
     .source img { width:32px; height:32px; flex:0 0 32px; border-radius:7px; }
@@ -41,6 +44,13 @@
         <tbody>
           <tr><td>
             <p>আপনাকে সবচেয়ে সহজ পদ্ধতিটা দেখাচ্ছি। আপনার লক্ষ্য হলো, ChatGPT-কে দিয়ে একটি নির্দিষ্ট Topic ও একাধিক Keyword-এর জন্য নিয়মিত Reddit ও X-এর নতুন পোস্ট খুঁজে আনার ব্যবস্থা করা, যাতে ফলাফল আপনি ChatGPT-তেই পান।</p>
+
+              <div class="action-links">
+                <a href="https://spmhqo.github.io/schedule/schedule-gemini.html" target="_blank" rel="noopener">Gemini</a>
+                <a href="https://spmhqo.github.io/schedule/schedule-chatgpt.html" target="_blank" rel="noopener">ChatGPT</a>
+              </div>
+
+
           </td></tr>
           <tr><td>
             <h2>ধাপ ১: ChatGPT-তে একটি নতুন Chat খুলুন</h2>
