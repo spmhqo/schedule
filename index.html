@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatGPT Scheduled Social Media Discovery</title>
+  <style>
+    :root { color-scheme: light; --ink:#172033; --muted:#5f6b7a; --line:#dfe5ee; --paper:#fff; --page:#f3f6fa; --accent:#1263d6; --accent-dark:#0e4fa9; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--page); color:var(--ink); font-family:system-ui,-apple-system,"Noto Sans Bengali","Nirmala UI",sans-serif; line-height:1.65; }
+    .page { width:min(100%, 940px); margin:0 auto; padding:clamp(16px,4vw,48px); }
+    .content-table-wrap { width:100%; overflow-x:auto; border-radius:18px; box-shadow:0 10px 35px rgba(23,32,51,.09); }
+    .content-table { width:100%; border-collapse:collapse; background:var(--paper); }
+    .content-table td { padding:clamp(20px,4vw,42px); vertical-align:top; }
+    .content-table tr + tr td { border-top:1px solid var(--line); }
+    p { margin:0 0 1.2rem; font-size:clamp(1rem,2.5vw,1.08rem); }
+    h2 { margin:0 0 .9rem; font-size:clamp(1.18rem,3.5vw,1.55rem); line-height:1.35; }
+    ul { margin:.2rem 0 1.25rem; padding-inline-start:1.35rem; font-size:clamp(1rem,2.5vw,1.08rem); }
+    li + li { margin-top:.38rem; }
+    .prompt-box { position:relative; margin:1rem 0 1.3rem; border:1px solid #cbd7e7; border-radius:14px; background:#f7faff; overflow:hidden; }
+    .copy-row { display:flex; justify-content:flex-end; padding:10px 10px 0; }
+    button { min-height:42px; padding:8px 14px; border:0; border-radius:9px; color:#fff; background:var(--accent); font:600 .88rem/1 system-ui,sans-serif; cursor:pointer; touch-action:manipulation; }
+    button:hover, button:focus-visible { background:var(--accent-dark); outline:3px solid rgba(18,99,214,.2); outline-offset:2px; }
+    pre { margin:0; padding:12px 16px 18px; white-space:pre-wrap; overflow-wrap:anywhere; color:#19283e; font:500 clamp(.9rem,2.5vw,1rem)/1.62 ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .source { display:flex; align-items:center; gap:10px; margin:1rem 0 1.3rem; color:var(--muted); font-size:.95rem; }
+    .source img { width:32px; height:32px; flex:0 0 32px; border-radius:7px; }
+    .source-text { display:grid; gap:1px; }
+    .source-text strong { color:var(--ink); font-weight:650; }
+    @media (max-width:480px) {
+      .page { padding:12px; }
+      .content-table-wrap { border-radius:12px; }
+      .content-table td { padding:20px 16px; }
+      pre { padding:10px 13px 16px; font-size:.82rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="content-table-wrap" role="region" aria-label="Scheduled Task instructions" tabindex="0">
+      <table class="content-table">
+        <tbody>
+          <tr><td>
+            <p>আপনাকে সবচেয়ে সহজ পদ্ধতিটা দেখাচ্ছি। আপনার লক্ষ্য হলো, ChatGPT-কে দিয়ে একটি নির্দিষ্ট Topic ও একাধিক Keyword-এর জন্য নিয়মিত Reddit ও X-এর নতুন পোস্ট খুঁজে আনার ব্যবস্থা করা, যাতে ফলাফল আপনি ChatGPT-তেই পান।</p>
+          </td></tr>
+          <tr><td>
+            <h2>ধাপ ১: ChatGPT-তে একটি নতুন Chat খুলুন</h2>
+            <p>ChatGPT-র সাধারণ Chat খুলুন। আলাদা করে কোনও Skill তৈরি করতে হবে না।</p>
+          </td></tr>
+          <tr><td>
+            <h2>ধাপ ২: প্রথমে ছোট একটি নির্দেশ দিন</h2>
+            <p>আপনার সম্পূর্ণ Reusable Prompt Template-টি এখনই পেস্ট করার দরকার নেই। প্রথমে নিচের নির্দেশটি পাঠান।</p>
+            <div class="prompt-box">
+              <div class="copy-row"><button type="button" data-copy="prompt-one">Copy Prompt</button></div>
+              <pre id="prompt-one">I want to create a recurring Scheduled Task in ChatGPT that finds relevant social media posts published within the previous 24 hours.
+
+The task should search Reddit and X using multiple keywords, identify relevant conversations, and return direct post URLs with concise summaries and suggested reply angles. I will write and publish replies manually.
+
+First, help me test and refine the research instructions in this chat. Do not create the schedule yet. I will provide the complete task instructions next.</pre>
+            </div>
+          </td></tr>
+          <tr><td>
+            <h2>ধাপ ৩: এবার আপনার সম্পূর্ণ Template দিন</h2>
+            <p>ChatGPT উত্তর দেওয়ার পরে, আগের তৈরি করা ChatGPT Scheduled Social Media Discovery Template-টি পেস্ট করুন এবং আপনার Topic, Keywords ও Platforms পূরণ করুন।</p>
+          </td></tr>
+          <tr><td>
+            <h2>ধাপ ৪: প্রথমে ফলাফল পরীক্ষা করুন</h2>
+            <p>ChatGPT-কে বলুন, আগে একবার সার্চ চালিয়ে ফলাফল দেখাতে। পরীক্ষা করুন:</p>
+            <ul>
+              <li>Reddit ও X—দুটোতেই সার্চ হয়েছে কি না।</li>
+              <li>একাধিক Keyword ব্যবহার হয়েছে কি না।</li>
+              <li>পোস্টগুলি সত্যিই গত ২৪ ঘণ্টায় প্রকাশিত কি না।</li>
+              <li>সরাসরি পোস্টের লিঙ্ক পাওয়া যাচ্ছে কি না।</li>
+            </ul>
+            <p>OpenAI-র নির্দেশিকাতেও Schedule করার আগে সাধারণ Chat-এ Prompt পরীক্ষা করে নেওয়ার পরামর্শ দেওয়া হয়েছে।&#x20;</p>
+            <div class="source"><img src="https://www.google.com/s2/favicons?domain=https://learn.chatgpt.com&amp;sz=32" alt=""><span class="source-text"><strong>ChatGPT Learn</strong><span>+1</span></span></div>
+          </td></tr>
+          <tr><td>
+            <h2>ধাপ ৫: এবার Schedule তৈরি করুন</h2>
+            <p>ফলাফল সন্তোষজনক হলে একই Chat-এ এই নির্দেশটি পাঠান:</p>
+            <div class="prompt-box">
+              <div class="copy-row"><button type="button" data-copy="prompt-two">Copy Prompt</button></div>
+              <pre id="prompt-two">The research instructions are now ready. Create a recurring Scheduled Task named "Social Networking Opportunities" using the finalized instructions in this conversation.
+
+Run it every day at [YOUR PREFERRED TIME] India Standard Time (IST).
+
+Return the results using the available Scheduled Task reporting mechanism.
+
+Before finalizing, confirm the recurrence and task instructions. If you cannot create the task directly, guide me to the Scheduled interface and tell me exactly what to enter.
+
+Do not claim that the task is active until its creation is confirmed.</pre>
+            </div>
+            <p>এরপর ChatGPT Schedule তৈরির নিশ্চয়তা দিলে বামদিকের সাইডবারে Scheduled খুলে Task-টি সক্রিয় আছে কি না এবং পরবর্তী রান কখন, দেখে নেবেন।&#x20;</p>
+            <div class="source"><img src="https://www.google.com/s2/favicons?domain=https://help.openai.com&amp;sz=32" alt=""><span class="source-text"><strong>OpenAI Help Center</strong></span></div>
+            <p>মনে রাখবেন: প্রথম নির্দেশটি শুধু কাজের নিয়ম তৈরি ও পরীক্ষা করার জন্য। শেষের নির্দেশটি Schedule তৈরি করার জন্য। এই দুই ধাপে এগোলে ভুল নির্দেশনা নিয়ে Schedule তৈরি হয়ে যাওয়ার ঝুঁকি কমবে।</p>
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script>
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const prompt = document.getElementById(button.dataset.copy).innerText;
+        await navigator.clipboard.writeText(prompt);
+        const original = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => { button.textContent = original; }, 1600);
+      });
+    });
+  </script>
+</body>
+</html>
