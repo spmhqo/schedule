@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChatGPT Scheduled Social Media Discovery - networking</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    label {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .dynamic-input {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      min-height: 100px;
+      transition: border-color 0.3s;
+    }
+
+    .dynamic-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 580px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>ChatGPT Scheduled Social Media Discovery</h1>
+      <p class="sub-header">(for networking)</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Multiline Input Card 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 1</span>
+          <button class="clear-btn" onclick="resetInput('inputPrimaryTopic')">Reset</button>
+        </div>
+        <label for="inputPrimaryTopic">Primary Topic:</label>
+        <textarea id="inputPrimaryTopic" class="dynamic-input" placeholder="Type or paste the primary topic here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 2</span>
+          <button class="clear-btn" onclick="resetInput('inputKeywords')">Reset</button>
+        </div>
+        <label for="inputKeywords">Keywords and Related Search Phrases:</label>
+        <textarea id="inputKeywords" class="dynamic-input" placeholder="Type or paste keywords, synonyms, and search phrases here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 3</span>
+          <button class="clear-btn" onclick="resetInput('inputPlatforms')">Reset</button>
+        </div>
+        <label for="inputPlatforms">Platforms to Search:</label>
+        <textarea id="inputPlatforms" class="dynamic-input" placeholder="Type or paste platforms to search (e.g., Reddit, X) here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 4</span>
+          <button class="clear-btn" onclick="resetInput('inputExcluded')">Reset</button>
+        </div>
+        <label for="inputExcluded">Excluded Keywords or Irrelevant Contexts:</label>
+        <textarea id="inputExcluded" class="dynamic-input" placeholder="Type or paste excluded keywords or write NONE..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 5 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 5</span>
+          <button class="clear-btn" onclick="resetInput('inputLanguage')">Reset</button>
+        </div>
+        <label for="inputLanguage">Post Language:</label>
+        <textarea id="inputLanguage" class="dynamic-input" placeholder="Type or paste post language (e.g., English) here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 6 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 6</span>
+          <button class="clear-btn" onclick="resetInput('inputRequirements')">Reset</button>
+        </div>
+        <label for="inputRequirements">Additional Requirements:</label>
+        <textarea id="inputRequirements" class="dynamic-input" placeholder="Type or paste task-specific requirements or write NONE..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Prompt Result Box -->
+      <div id="promptsContainer">
+        <!-- Prompt Card injected by JavaScript -->
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const promptTemplate = `OBJECTIVE
+
+Create a recurring Scheduled Task in ChatGPT that discovers relevant social media posts published within the 24 hours immediately preceding each run.
+
+The purpose is to help me discover fresh conversations about specific topics, visit the original posts, and manually write thoughtful replies to build genuine relationships and grow my network.
+
+1. VARIABLE INPUTS
+
+Primary Topic:
+[ENTER THE MAIN TOPIC]
+
+Keywords and Related Search Phrases:
+[ENTER MULTIPLE KEYWORDS, SYNONYMS, RELATED TERMS, AND SEARCH PHRASES]
+
+Platforms to Search:
+[ENTER PLATFORMS, E.G., REDDIT, X]
+
+Excluded Keywords or Irrelevant Contexts:
+[ENTER EXCLUSIONS OR WRITE NONE]
+
+Post Language:
+[ENTER LANGUAGE, E.G., ENGLISH]
+
+Additional Requirements:
+[ENTER TASK-SPECIFIC REQUIREMENTS OR WRITE NONE]
+
+2. CREATE THE SCHEDULED TASK
+
+Create a new recurring Scheduled Task in ChatGPT using the instructions in this prompt.
+
+Use the schedule frequency, execution time, and time zone that I configure through the scheduling interface. Do not ask me to provide these as additional research inputs.
+
+Deliver each report through the Scheduled Task's results and notifications, using the task's supported delivery options.
+
+If the scheduling interface requires me to configure or confirm the schedule manually, guide me through the necessary steps.
+
+Do not claim the task has been created until ChatGPT confirms successful creation.
+
+3. MANDATORY PUBLICATION TIME WINDOW
+
+For every run, discover relevant posts published during the 24 hours immediately preceding that run.
+
+This is a rolling 24-hour window, not a calendar-day filter.
+
+Apply these rules:
+
+- Determine recency using the original post's publication timestamp, not its indexing, retrieval, editing, or discovery time.
+- Use available platform search filters, search operators, and publication timestamps whenever possible.
+- Exclude posts verified as older than the beginning of the 24-hour window.
+- Verify publication times whenever possible.
+- If a relevant post's publication time cannot be verified, place it in a separate section labelled "Publication Time Unverified."
+- Never present an unverified post as a confirmed match.
+- If available search capabilities cannot reliably enforce the time window, disclose the limitation.
+- Never invent timestamps or claim that a post meets the time requirement without sufficient evidence.
+
+4. MULTI-KEYWORD SEARCH PROCEDURE
+
+Search every specified platform using the supplied keywords and related phrases.
+
+1. Treat each keyword and phrase as a separate search opportunity when appropriate.
+2. Search useful combinations, synonyms, spelling variations, and related expressions when they improve discovery.
+3. Do not rely on a single broad query or search only the first keyword.
+4. Use available platform-specific filters, pagination, and additional searches to retrieve relevant results.
+5. Search each platform independently and report its results separately.
+6. Search for posts written in the specified language.
+7. Apply the exclusion criteria to remove irrelevant matches.
+8. Deduplicate results using post IDs or canonical URLs wherever possible.
+
+Use available ChatGPT web search or other authorized search capabilities appropriate to the task. Do not assume that every platform's posts are fully indexed or accessible.
+
+5. RELEVANCE AND NETWORKING CRITERIA
+
+Prioritize posts that offer meaningful opportunities to participate in discussions related to the specified topic.
+
+Look for:
+- Questions seeking answers, advice, or explanations.
+- People sharing problems, challenges, experiences, or lessons.
+- Discussions inviting thoughtful opinions or alternative perspectives.
+- Relevant conversations where I could contribute useful knowledge or insights.
+- Other substantive posts that offer a natural opportunity to establish genuine connections.
+
+Exclude spam, irrelevant keyword matches, repetitive promotional content, and posts that offer no meaningful opportunity for participation.
+
+Do not impose an additional target-audience restriction unless one is explicitly provided in the variable inputs.
+
+Prioritize results by relevance, recency, and the potential for a useful contribution. Do not confuse popularity with relevance.
+
+6. RESULT COLLECTION AND VERIFICATION
+
+For every confirmed relevant post, collect the following information when available:
+
+- Platform name.
+- Original post's direct URL.
+- Author or account name.
+- Publication date and time.
+- Matched keyword or search phrase.
+- A concise summary of the discussion.
+- Why the post is relevant to my topic and networking objective.
+- A suggested reply angle that could help me contribute something useful.
+
+Open the original post when necessary and when access permits.
+
+Never fabricate URLs, authors, timestamps, post content, or verification results.
+
+If a platform is inaccessible or its search functionality is insufficient, report the limitation and provide verified results from the other platforms.
+
+7. RESULT VOLUME AND COVERAGE
+
+Return all relevant, accessible posts that can be reliably discovered across the specified platforms and keywords within the publication window.
+
+- Do not impose an arbitrary result limit.
+- Retrieve additional result pages when supported.
+- Do not stop after finding a small number of results if further relevant results remain accessible.
+- Recognize that search engines and platform APIs may not expose every published post.
+- Distinguish between all results retrieved and all posts that exist on the platform.
+- Never claim exhaustive coverage unless the available search sources genuinely support that claim.
+
+8. REQUIRED REPORT FORMAT
+
+Recent Social Media Networking Opportunities
+
+Topic: [PRIMARY TOPIC]
+
+Search window: [VERIFIED START TIME] to [VERIFIED END TIME]
+
+Platforms searched: [PLATFORMS]
+
+Keywords searched: [KEYWORDS AND PHRASES]
+
+Organize the results by platform.
+
+For each confirmed post, use this format:
+
+#[Post Title or Concise Description]
+
+Platform: [PLATFORM NAME]
+
+Author: [AUTHOR NAME, IF AVAILABLE]
+
+Published: [VERIFIED PUBLICATION DATE AND TIME, IF AVAILABLE]
+
+Matched keyword: [KEYWORD OR SEARCH PHRASES]
+
+Original post URL: [DIRECT LINK TO THE ORIGINAL POST]
+
+Discussion summary: [CONCISE, ACCURATE SUMMARY]
+
+Why engage: [SPECIFIC REASON THE POST IS RELEVANT]
+
+Suggested reply angle: [A BRIEF, USEFUL IDEA FOR A MANUAL RESPONSE]
+
+Keep the report easy to scan and avoid repeating information.
+
+#Publication Time Unverified
+
+List relevant posts whose publication times could not be verified separately. Include their URLs and explain what could not be confirmed.
+
+#Final Search Summary
+
+Report:
+- The number of confirmed relevant posts found on each platform.
+- Any additional posts whose publication times remain unverified.
+- Significant coverage, access, or search limitations.
+- The most promising conversations to visit first.
+
+If no confirmed relevant posts are found, state that clearly. Distinguish between no matching posts, an incomplete search, and a platform that could not be searched.
+
+9. MANUAL ENGAGEMENT ONLY
+
+My purpose is to discover conversations and write my own replies.
+
+Do not automatically publish comments, send messages, follow accounts, like posts, or perform other engagement actions.
+
+Provide the information and suggested reply angles I need to visit the original posts and decide how to respond.
+
+10. OUTPUT AND STORAGE REQUIREMENTS
+
+- Deliver results through the Scheduled Task's supported reporting and notification mechanisms.
+- Do not create Google Sheets, spreadsheets, external documents, dashboards, or databases.
+- Do not require external tracking systems.
+- Do not claim to remember previously reported posts unless the necessary history is genuinely accessible.
+- Deduplicate within each report and use available task history to avoid unnecessary repetition when reliable.
+
+11. FINAL VALIDATION AND TASK CREATION
+
+Before creating the Scheduled Task, verify that the requested configuration is clear and that the intended workflow is supported.
+
+Check the following:
+
+1. The task is configured to run on the requested schedule.
+2. All specified platforms can be searched using available capabilities.
+3. Multiple keywords and related phrases are included in the saved instructions.
+4. The rolling 24-hour publication window is explicitly enforced to the extent supported.
+5. Confirmed results require credible publication-time evidence.
+6. Duplicate and irrelevant results are removed where possible.
+7. Direct post URLs and useful networking context are included.
+8. Search limitations are disclosed.
+9. The results are delivered through the Scheduled Task's supported reporting mechanism.
+
+If a capability is unavailable, explain the limitation rather than silently substituting a different workflow.
+
+After successful creation, confirm the task name, recurrence, configured execution time, selected platforms, topic, and delivery mechanism.
+
+If task creation is unsuccessful, explain what prevented it and guide me through any required manual steps.
+
+The final objective is a dependable recurring discovery report that helps me find fresh, relevant conversations and manually participate in them to build genuine relationships and grow my network.`;
+
+    function createCards() {
+      const container = document.getElementById('promptsContainer');
+      container.innerHTML = `
+        <div class="step-card">
+          <div class="step-header">
+            <span class="step-label">Prompt #1</span>
+          </div>
+          <div class="prompt-content" id="p1"></div>
+          <button class="btn copy-btn" onclick="copyText('p1', this)">
+            <span>Copy Prompt #1</span>
+          </button>
+        </div>
+      `;
+    }
+
+    function updatePrompts() {
+      const topicVal = document.getElementById('inputPrimaryTopic').value.trim() || "[ENTER THE MAIN TOPIC]";
+      const keywordsVal = document.getElementById('inputKeywords').value.trim() || "[ENTER MULTIPLE KEYWORDS, SYNONYMS, RELATED TERMS, AND SEARCH PHRASES]";
+      const platformsVal = document.getElementById('inputPlatforms').value.trim() || "[ENTER PLATFORMS, E.G., REDDIT, X]";
+      const excludedVal = document.getElementById('inputExcluded').value.trim() || "[ENTER EXCLUSIONS OR WRITE NONE]";
+      const languageVal = document.getElementById('inputLanguage').value.trim() || "[ENTER LANGUAGE, E.G., ENGLISH]";
+      const requirementsVal = document.getElementById('inputRequirements').value.trim() || "[ENTER TASK-SPECIFIC REQUIREMENTS OR WRITE NONE]";
+
+      let updatedText = promptTemplate;
+      updatedText = updatedText.replace('[ENTER THE MAIN TOPIC]', topicVal);
+      updatedText = updatedText.replace('[ENTER MULTIPLE KEYWORDS, SYNONYMS, RELATED TERMS, AND SEARCH PHRASES]', keywordsVal);
+      updatedText = updatedText.replace('[ENTER PLATFORMS, E.G., REDDIT, X]', platformsVal);
+      updatedText = updatedText.replace('[ENTER EXCLUSIONS OR WRITE NONE]', excludedVal);
+      updatedText = updatedText.replace('[ENTER LANGUAGE, E.G., ENGLISH]', languageVal);
+      updatedText = updatedText.replace('[ENTER TASK-SPECIFIC REQUIREMENTS OR WRITE NONE]', requirementsVal);
+
+      const target = document.getElementById('p1');
+      if (target) {
+        target.innerText = updatedText;
+      }
+    }
+
+    function resetInput(fieldId) {
+      document.getElementById(fieldId).value = "";
+      updatePrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load
+    window.onload = () => {
+      createCards();
+      updatePrompts();
+    };
+  </script>
+</body>
+</html>
